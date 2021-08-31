@@ -73,11 +73,25 @@ userSchema.methods.generateToken = function(cb) {
     var token = jwt.sign(user._id.toHexString(), 'secretToken');
     user.token = token;
     user.save(function(err, user) {
-        if(err) {
+        if (err) {
             return cb(err) 
         } else {
             return cb(null, user);
         }
+    });
+}
+
+userSchema.statics.findByToken = function(token, cb) {
+    var user = this;
+    // 토큰을 복호화
+    jwt.verify(token, 'secretToken', function(err, decoded) {
+        user.findOne({"_id": decoded, "token": token }, function(err, user) {
+            if (err) {
+                return cb(err) 
+            } else {
+                return cb(null, user);
+            }
+        })
     });
 }
 
