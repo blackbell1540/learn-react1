@@ -22,7 +22,7 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/api/hello', (req, res) => res.send('Hello World!'));
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     const user = new User(req.body);
 
     // save는 몽고디비 함수
