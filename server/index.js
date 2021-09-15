@@ -20,7 +20,7 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
 
-// app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/api/hello', (req, res) => res.send('Hello World!'));
 
 app.post('/register', (req, res) => {
     const user = new User(req.body);
